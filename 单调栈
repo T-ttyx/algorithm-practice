@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+const int N = 3e6+10;
+
+int n;
+int a[N];
+int ans[N];
+int stk[N];
+int top = 0;
+
+void solve()
+{
+	cin>>n;
+	for(int i=1;i<=n;i++)
+	{
+		cin>>a[i];
+	}
+	for(int i=1;i<=n;i++)
+	{
+		while(top>0&&a[i]>a[stk[top]])
+		{
+			ans[stk[top]] = i;
+			top--;
+		}
+		stk[++top] = i;
+	}
+	for(int i=1;i<=n;i++)
+	{
+		cout<<ans[i]<<" ";
+	}
+	
+}
+int main()
+{
+	int T;
+	//cin>>T;
+	T = 1;
+	while(T--)
+	{
+		solve();
+	}
+	
+	return 0;
+}

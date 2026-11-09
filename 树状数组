@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+const int N = 500005;
+int tree[N];
+int n,m;
+
+int lowbit(int x)
+{
+	return x&-x;
+}
+void add(int i,int k)
+{
+	while(i<=n)
+	{
+		tree[i] += k;
+		i += lowbit(i);
+	}
+}
+int query(int i)
+{
+	int sum = 0;
+	while(i>0)
+	{
+		sum +=tree[i];
+		i -= lowbit(i);
+	}
+	return sum;
+}
+
+void solve()
+{
+	cin>>n>>m;
+	for(int i =1;i<=n;++i)
+	{
+		int val;
+		cin>>val;
+		add(i,val);
+	}
+	for(int i=0;i<m;i++)
+	{
+		int op,x,y;
+		cin>>op>>x>>y;
+		if(op==1)
+		{
+			add(x,y);
+		}else if(op==2)
+		{
+			cout<<query(y) - query(x-1)<<"\n";
+		}
+	}
+}
+int main()
+{
+	int T;
+	//cin>>T;
+	T=1;
+	
+	while(T--)
+	{
+		solve();
+	}
+		
+	return 0;
+}
